@@ -1,6 +1,9 @@
 require "selenium-webdriver"
 require "page-object"
 
+#https://github.com/cheezy/page-object/wiki/Elements
+#gem page object element
+
 class HomePage
 	include PageObject
 	page_url("http://localhost:3000")
