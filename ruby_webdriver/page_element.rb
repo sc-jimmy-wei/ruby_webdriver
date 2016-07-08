@@ -35,7 +35,7 @@ class SignUpPage
 
 	#define functions used in SIGN UP PAGE
 	def generate_random_string()
-		randomString = [*('A'..'z')].sample(8).join
+		randomString = [*('A'..'Z'), *('a'..'z')].sample(8).join
 		randomString
 	end
 
@@ -46,15 +46,30 @@ class SignUpPage
 
 end
 
-class BabyListPage
+class BabyIndexPage
 	include PageObject
 	page_url("http://localhost:3000/babies")
 
-	#define elements in BABY LIST PAGE
-	h1(:baby_list_title, :xpath => '/html/body/h1')
-	table(:baby_list_table, :xpath => '/html/body/table')
-	link(:find_steve, :xpath => '//*[contains(text(), "Steve Yang")]')
+	#define elements in BABY INDEX PAGE
+	h1(:baby_index_title, :xpath => '/html/body/h1')
+	table(:baby_index_table, :xpath => '/html/body/table')
 
-	#define functoins used in BABY LIST PAGE
+	#define functoins used in BABY INDEX PAGE
+
+end
+
+class BabyDetailPage
+	include PageObject
+	page_url("")
+
+	#define elements in BABY DETAIL PAGE
+	paragraph(:baby_first_name, :css => 'p:nth-child(1) > strong:nth-child(1)')
+	paragraph(:baby_last_name, :css => 'p:nth-child(1) > strong:nth-child(2)')
+	paragraph(:baby_height, :css => 'p:nth-child(2) > strong:nth-child(2)')
+	paragraph(:baby_weight, :css => 'p:nth-child(2) > strong:nth-child(4)')
+	paragraph(:baby_temperature, :css => 'p:nth-child(2) > strong:nth-child(6)')
+	link(:home_page_link, :href => '/')
+	#define functions used in BABY DETAIL PAGE
+
 
 end

@@ -39,34 +39,13 @@ describe "Fitness Tracker" do
 		expect(sign_up_page.sign_up_title == "Sign up").to be true
 	end
 
-	it "sign up new baby" do
-		home_page = HomePage.new(@driver)
-		home_page.goto
-		home_page.sign_up_link_element.when_visible.click
-		sign_up_page = SignUpPage.new(@driver)
-		@wait.until {sign_up_page.first_name?}
-		sign_up_page.first_name = "Steve"
-		sign_up_page.last_name = "Yang"
-		sign_up_page.check_metric
-		sign_up_page.height = 75
-		sign_up_page.weight = 6
-		sign_up_page.temperature = 27
-		sign_up_page.create_button
-		@wait.until {home_page.show_all_babies_link_element}
-		home_page.show_all_babies_link
-		baby_list_page = BabyListPage.new(@driver)
-		@wait.until {baby_list_page.baby_list_table_element}
-		expect(baby_list_page.find_steve_element.visible?).to be true
-	end
-
-	it "sign up flow" do
+	it "test sign up flow" do
 		home_page = HomePage.new(@driver)
 		home_page.goto
 		home_page.sign_up_link_element.when_visible.click
 		sign_up_page = SignUpPage.new(@driver)
 		@wait.until {sign_up_page.first_name?}
 		sign_up_page.first_name = sign_up_page.generate_random_string
-		puts sign_up_page.first_name
 		find_xpath = "//*[contains(text(), \'%s\')]" % [sign_up_page.first_name]
 		@wait.until {sign_up_page.last_name?}
 		sign_up_page.last_name = sign_up_page.generate_random_string
@@ -76,10 +55,44 @@ describe "Fitness Tracker" do
 		sign_up_page.temperature = sign_up_page.generate_random_number
 		sign_up_page.create_button
 		home_page.show_all_babies_link_element.when_visible.click
-		baby_list_page = BabyListPage.new(@driver)
-		@wait.until {baby_list_page.baby_list_table?}
+		baby_index_page = BabyIndexPage.new(@driver)
+		@wait.until {baby_index_page.baby_index_table?}
 		test_baby = @driver.find_element(:xpath, find_xpath)
 		expect(test_baby.displayed?).to be true
+	end
+
+	it "check if sign up data are saved" do
+		home_page = HomePage.new(@driver)
+		home_page.goto
+		home_page.sign_up_link_element.when_visible.click
+		sign_up_page = SignUpPage.new(@driver)
+		@wait.until {sign_up_page.first_name?}
+		sign_up_page.first_name = sign_up_page.generate_random_string
+		tester_first_name = sign_up_page.first_name
+		find_first_name_xpath = "//*[contains(text(), \'%s\')]" % [sign_up_page.first_name]
+		@wait.until {sign_up_page.last_name?}
+		sign_up_page.last_name = sign_up_page.generate_random_string
+		tester_last_name = sign_up_page.last_name
+		sign_up_page.check_metric
+		sign_up_page.height = sign_up_page.generate_random_number
+		tester_height = sign_up_page.height
+		sign_up_page.weight = sign_up_page.generate_random_number
+		tester_weight = sign_up_page.weight
+		sign_up_page.temperature = sign_up_page.generate_random_number
+		tester_temperature = sign_up_page.temperature
+		sign_up_page.create_button
+		home_page.show_all_babies_link_element.when_visible.click
+		baby_index_page = BabyIndexPage.new(@driver)
+		@wait.until {baby_index_page.baby_index_table?}
+		tester_baby = @driver.find_element(:xpath, find_first_name_xpath)
+		tester_baby.click
+		baby_detail_page = BabyDetailPage.new(@driver)
+		@wait.until {baby_detail_page.baby_temperature?}
+		expect(baby_detail_page.baby_first_name).to eq(tester_first_name)
+		expect(baby_detail_page.baby_last_name).to eq(tester_last_name)
+		expect(baby_detail_page.baby_height).to eq(tester_height)
+		expect(baby_detail_page.baby_weight).to eq(tester_weight)
+		expect(baby_detail_page.baby_temperature).to eq(tester_temperature)
 	end
 
 end
