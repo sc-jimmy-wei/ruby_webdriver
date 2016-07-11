@@ -40,7 +40,7 @@ class SignUpPage
 	end
 
 	def generate_random_number()
-		random_number = [*('0'..'9')].sample(2).join
+		random_number = [*('1'..'9')].sample(2).join
 		random_number
 	end
 
@@ -69,7 +69,41 @@ class BabyDetailPage
 	paragraph(:baby_weight, :css => 'p:nth-child(2) > strong:nth-child(4)')
 	paragraph(:baby_temperature, :css => 'p:nth-child(2) > strong:nth-child(6)')
 	link(:home_page_link, :href => '/')
+	link(:metric_link, :css => 'h3 > b > a:nth-child(1)')
+	link(:imperial_link, :css => 'h3 > b > a:nth-child(2)')
+
 	#define functions used in BABY DETAIL PAGE
+  	CENTIMETER = 1
+  	METER = 100 * 1
+  	INCH = 2.54 * 1
+  	FOOT = 12 * 2.54 * 1
+  	YARD = 3 * 12 * 2.54 * 1
+  	MILE = 1760 * 3 * 12 * 2.54 * 1
 
+  	KILOGRAM = 1
+  	POUND = 2.2 * 1
 
+	def inch_to_centimeter(value)
+    	(value * BabyDetailPage::INCH).round(2)
+  	end
+
+  	def centimeter_to_inch(value)
+    	(value / BabyDetailPage::INCH).round(2)
+  	end
+
+  	def kilogram_to_pound(value)
+    	(value * BabyDetailPage::POUND).round(2)
+  	end
+
+  	def pound_to_kilogram(value)
+    	(value / BabyDetailPage::POUND).round(2)
+  	end
+
+  	def celsius_to_fahrenheit(value)
+    	((value * 9/5) + 32).round(1)
+  	end
+
+  	def fahrenheit_to_celsius(value)
+    	self.value = ((value - 32) * 5/9).round(1)
+  	end
 end
