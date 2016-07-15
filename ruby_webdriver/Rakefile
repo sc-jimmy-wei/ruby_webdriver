@@ -1,0 +1,1 @@
+Dir.glob(File.join('/Users/jimmywei/Documents/Git/ruby_webdriver/ruby_webdriver/*.rake')).each { |file| load file }

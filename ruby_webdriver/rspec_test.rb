@@ -2,6 +2,11 @@ require "selenium-webdriver"
 require "./page_element.rb"
 require "page-object"
 
+#Generate result in HTML format 
+#rspec rspec_test.rb --format html --out rspec_result.html
+#rake rspec_report:html
+#rake rspec_report:browser
+
 describe "Fitness Tracker" do
 
 	before(:all) do
@@ -15,21 +20,21 @@ describe "Fitness Tracker" do
 		@driver.quit
 	end
 
-	it "load home page" do
+	it "loads home page" do
 		home_page = HomePage.new(@driver)
 		home_page.goto
 		@wait.until {home_page.home_title}
 		expect(home_page.home_title == "Welcome to Fitness Tracker").to be true
 	end
 
-	it "load home page picture" do
+	it "loads home page picture" do
 		home_page = HomePage.new(@driver)
 		home_page.goto
 		@wait.until {home_page.baby_pic_element}
 		expect(home_page.baby_pic_element.visible?).to be true
 	end
 
-	it "load sign up page" do
+	it "loads sign up page" do
 		home_page = HomePage.new(@driver)
 		home_page.goto
 		@wait.until {home_page.sign_up_link_element}
@@ -39,7 +44,7 @@ describe "Fitness Tracker" do
 		expect(sign_up_page.sign_up_title == "Sign up").to be true
 	end
 
-	it "test sign up flow" do
+	it "tests sign up flow" do
 		home_page = HomePage.new(@driver)
 		home_page.goto
 		home_page.sign_up_link_element.when_visible.click
@@ -61,7 +66,7 @@ describe "Fitness Tracker" do
 		expect(test_baby.displayed?).to be true
 	end
 
-	it "check if sign up data are saved" do
+	it "checks if sign up data are saved" do
 		home_page = HomePage.new(@driver)
 		home_page.goto
 		home_page.sign_up_link_element.when_visible.click

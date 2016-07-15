@@ -40,7 +40,7 @@ class SignUpPage
 	end
 
 	def generate_random_number()
-		random_number = [*('1'..'9')].sample(2).join
+		random_number = [*('0'..'99')].sample(1).join
 		random_number
 	end
 
