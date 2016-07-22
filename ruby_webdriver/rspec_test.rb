@@ -7,7 +7,7 @@ require "page-object"
 #rake rspec_report:html
 #rake rspec_report:browser
 
-describe "Fitness Tracker" do
+describe "Test Baby" do
 
 	before(:all) do
 		@driver = Selenium::WebDriver.for :firefox
@@ -136,5 +136,42 @@ describe "Fitness Tracker" do
 		expect(baby_detail_page.baby_weight.to_f == tester_imperial_weight).to be true
 		expect(baby_detail_page.baby_temperature.to_f == tester_imperial_temperature).to be true
 	end
+end
 
+describe "Test Baby" do
+
+	before(:all) do
+		@driver = Selenium::WebDriver.for :firefox
+		@driver.manage.window.maximize
+		# @driver.navigate.to ("localhost:3000")
+		@wait = Selenium::WebDriver::Wait.new(:timeout => 15)
+	end
+	
+	after(:all) do
+		@driver.quit
+	end
+
+	it "loads animal index page" do
+		home_page = HomePage.new(@driver)
+		home_page.goto
+		@wait.until {home_page.home_title}
+		home_page.show_all_animals_link
+		animal_index_page = AnimalIndexPage.new(@driver)
+		@wait.until {animal_index_page.animal_index_title?}
+		expect(animal_index_page.animal_index_title == "Listing Animals").to be true
+	end
+
+	it "checks if animal details are displayed" do
+		home_page = HomePage.new(@driver)
+		home_page.goto
+		@wait.until {home_page.home_title}
+		home_page.show_all_animals_link
+		animal_index_page = AnimalIndexPage.new(@driver)
+		@wait.until {animal_index_page.animal_index_title?}
+		animal_index_page.cat_link
+		animal_detail_page = AnimalDetailPage.new(@driver)
+		@wait.until {animal_detail_page.animal_pic?}
+		expect(animal_detail_page.animal_name == 'Cat').to be true
+		expect(animal_detail_page.animal_pic_element.visible?).to be true
+	end
 end

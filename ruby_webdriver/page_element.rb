@@ -15,6 +15,7 @@ class HomePage
 	image(:baby_pic, :alt => 'Happy baby')
 	link(:sign_up_link, :href => 'babies/new')
 	link(:show_all_babies_link, :href => 'babies')
+	link(:show_all_animals_link, :href => 'animals')
 	#define functions used in HOME PAGE
 	
 end
@@ -115,4 +116,28 @@ class BabyDetailPage
   	def fahrenheit_to_celsius(value)
     	self.value = ((value - 32) * 5/9).round(1)
   	end
+end
+
+class AnimalIndexPage
+	include PageObject
+	page_url("http://localhost:3000/animals")
+
+	#define elements in HOME PAGE
+	h1(:animal_index_title, :css => 'body > h1')
+	link(:cat_link, :xpath => "//*[contains(text(), 'Cat')]")
+
+	#define functions used in HOME PAGE
+
+end
+
+class AnimalDetailPage
+	include PageObject
+	page_url("")
+
+	#define elements in HOME PAGE
+	h3(:animal_name, :css => 'body > table > tbody > tr:nth-child(1) > th > h3')
+	image(:animal_pic, :alt => 'Cat')
+
+	#define functions used in HOME PAGE
+
 end
