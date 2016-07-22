@@ -55,9 +55,9 @@ describe "Fitness Tracker" do
 		@wait.until {sign_up_page.last_name?}
 		sign_up_page.last_name = sign_up_page.generate_random_string
 		sign_up_page.check_metric
-		sign_up_page.height = sign_up_page.generate_random_number
-		sign_up_page.weight = sign_up_page.generate_random_number
-		sign_up_page.temperature = sign_up_page.generate_random_number
+		sign_up_page.height = sign_up_page.generate_random_height_number
+		sign_up_page.weight = sign_up_page.generate_random_weight_number
+		sign_up_page.temperature = sign_up_page.generate_random_temperature_number
 		sign_up_page.create_button
 		home_page.show_all_babies_link_element.when_visible.click
 		baby_index_page = BabyIndexPage.new(@driver)
@@ -79,11 +79,11 @@ describe "Fitness Tracker" do
 		sign_up_page.last_name = sign_up_page.generate_random_string
 		tester_last_name = sign_up_page.last_name
 		sign_up_page.check_metric
-		sign_up_page.height = sign_up_page.generate_random_number
+		sign_up_page.height = sign_up_page.generate_random_height_number
 		tester_height = sign_up_page.height
-		sign_up_page.weight = sign_up_page.generate_random_number
+		sign_up_page.weight = sign_up_page.generate_random_weight_number
 		tester_weight = sign_up_page.weight
-		sign_up_page.temperature = sign_up_page.generate_random_number
+		sign_up_page.temperature = sign_up_page.generate_random_temperature_number
 		tester_temperature = sign_up_page.temperature
 		sign_up_page.create_button
 		home_page.show_all_babies_link_element.when_visible.click
@@ -95,9 +95,9 @@ describe "Fitness Tracker" do
 		@wait.until {baby_detail_page.baby_temperature?}
 		expect(baby_detail_page.baby_first_name).to eq(tester_first_name)
 		expect(baby_detail_page.baby_last_name).to eq(tester_last_name)
-		expect(baby_detail_page.baby_height).to eq(tester_height)
-		expect(baby_detail_page.baby_weight).to eq(tester_weight)
-		expect(baby_detail_page.baby_temperature).to eq(tester_temperature)
+		expect(baby_detail_page.baby_height.to_f).to eq(tester_height.to_f)
+		expect(baby_detail_page.baby_weight.to_f).to eq(tester_weight.to_f)
+		expect(baby_detail_page.baby_temperature.to_f).to eq(tester_temperature.to_f)
 	end
 
 	it "checks conversion" do
@@ -112,9 +112,9 @@ describe "Fitness Tracker" do
 		@wait.until {sign_up_page.last_name?}
 		sign_up_page.last_name = sign_up_page.generate_random_string
 		sign_up_page.check_metric
-		sign_up_page.height = sign_up_page.generate_random_number
-		sign_up_page.weight = sign_up_page.generate_random_number
-		sign_up_page.temperature = sign_up_page.generate_random_number
+		sign_up_page.height = sign_up_page.generate_random_height_number
+		sign_up_page.weight = sign_up_page.generate_random_weight_number
+		sign_up_page.temperature = sign_up_page.generate_random_temperature_number
 		sign_up_page.create_button
 		home_page.show_all_babies_link_element.when_visible.click
 		baby_index_page = BabyIndexPage.new(@driver)

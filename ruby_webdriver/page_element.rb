@@ -39,11 +39,20 @@ class SignUpPage
 		randomString
 	end
 
-	def generate_random_number()
-		random_number = [*('0'..'99')].sample(1).join
+	def generate_random_height_number()
+		random_number = [*('10'..'70')].sample(1).join
 		random_number
 	end
 
+	def generate_random_weight_number()
+		random_number = [*('1'..'11')].sample(1).join
+		random_number
+	end
+
+	def generate_random_temperature_number()
+		random_number = [*('20'..'100')].sample(1).join
+		random_number
+	end
 end
 
 class BabyIndexPage
